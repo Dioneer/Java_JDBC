@@ -11,8 +11,11 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="6cb4a702-53d2-46a0-9c92-79ec6869a54f">
-        <schema name="pg_catalog" object-types="table, view" />
-        <schema name="public" object-types="table, view, sequence, function" />
+        <schema name="game" object-types="table, view, sequence, function, constraint, index, column, dataset trigger" />
+        <schema name="information_schema" object-types="table, view, sequence, function" />
+        <schema name="pg_catalog" object-types="table, view, sequence, function" />
+        <schema name="pg_toast" object-types="table, view, sequence, function" />
+        <schema name="public" object-types="table, view, sequence, function, constraint, index, column, dataset trigger" />
       </connection>
     </loaded-nodes>
   </component>
@@ -40,6 +43,8 @@ select * from test.pegas;]]></console>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="6cb4a702-53d2-46a0-9c92-79ec6869a54f" dataset="test.pegas" active-filter-id="" />
+    <filter-actions connection-id="6cb4a702-53d2-46a0-9c92-79ec6869a54f" dataset="public.info" active-filter-id="" />
+    <filter-actions connection-id="6cb4a702-53d2-46a0-9c92-79ec6869a54f" dataset="game.info" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
