@@ -3,7 +3,6 @@ package Pegas;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public final class ConnectionManager {
     private static final String URL_KEY = "db.url";

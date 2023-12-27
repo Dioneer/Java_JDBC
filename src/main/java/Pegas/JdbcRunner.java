@@ -1,18 +1,25 @@
 package Pegas;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class JdbcRunner {
     public static void main(String[] args){
         String sql = """
-                insert into game.info(data) values ('2017-08-15'),
-                ('2018-08-15'),('2019-08-15'),('2020-08-15'),('2021-08-15')
+                select *  from game.info
                 """;
         try(Connection connection = ConnectionManager.open();
         Statement statement = connection.createStatement()){
-            System.out.println(statement.execute(sql));
+            statement.setFetchSize(2);
+            statement.setMaxRows(2);
+//            System.out.println(statement.execute(sql));
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()){
+                System.out.println(result.getString("id"));
+                System.out.println(result.getString("data"));
+            }
         }catch(SQLException ex) {System.out.println(ex.getMessage());}
 
     }

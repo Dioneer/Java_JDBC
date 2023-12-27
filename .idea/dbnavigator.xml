@@ -12,10 +12,8 @@
     <loaded-nodes>
       <connection connection-id="6cb4a702-53d2-46a0-9c92-79ec6869a54f">
         <schema name="game" object-types="table, view, sequence, function, constraint, index, column, dataset trigger" />
-        <schema name="information_schema" object-types="table, view, sequence, function" />
-        <schema name="pg_catalog" object-types="table, view, sequence, function" />
-        <schema name="pg_toast" object-types="table, view, sequence, function" />
-        <schema name="public" object-types="table, view, sequence, function, constraint, index, column, dataset trigger" />
+        <schema name="pg_catalog" object-types="table, view, function" />
+        <schema name="public" object-types="table, view, function" />
       </connection>
     </loaded-nodes>
   </component>
@@ -36,7 +34,9 @@ select * from test.pegas;]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="6cb4a702-53d2-46a0-9c92-79ec6869a54f" object-ref="schemas/game/tables/info" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="6cb4a702-53d2-46a0-9c92-79ec6869a54f" />
