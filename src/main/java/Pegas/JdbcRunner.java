@@ -10,7 +10,7 @@ public class JdbcRunner {
         String sql = """
                 select *  from game.info
                 """;
-        try(Connection connection = ConnectionManager.open();
+        try(Connection connection = ConnectionManager.get();
         Statement statement = connection.createStatement()){
             statement.setFetchSize(2);
             statement.setMaxRows(2);
@@ -20,7 +20,9 @@ public class JdbcRunner {
                 System.out.println(result.getString("id"));
                 System.out.println(result.getString("data"));
             }
-        }catch(SQLException ex) {System.out.println(ex.getMessage());}
+        }catch(SQLException ex) {System.out.println(ex.getMessage());} catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

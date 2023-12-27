@@ -12,8 +12,8 @@
     <loaded-nodes>
       <connection connection-id="6cb4a702-53d2-46a0-9c92-79ec6869a54f">
         <schema name="game" object-types="table, view, sequence, function, constraint, index, column, dataset trigger" />
-        <schema name="pg_catalog" object-types="table, view, function" />
-        <schema name="public" object-types="table, view, function" />
+        <schema name="pg_catalog" object-types="function" />
+        <schema name="public" object-types="function" />
       </connection>
     </loaded-nodes>
   </component>
