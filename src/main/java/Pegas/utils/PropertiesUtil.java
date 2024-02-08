@@ -19,4 +19,6 @@ public final class PropertiesUtil {
     public static String get(String key){
         return PROPERTIES.getProperty(key);
     }
+
+    private PropertiesUtil() {}
 }

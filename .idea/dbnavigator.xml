@@ -113,7 +113,9 @@ group by c.user_name]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" object-ref="schemas/public/tables/users" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" />
@@ -122,6 +124,8 @@ group by c.user_name]]></console>
     <filter-actions connection-id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" dataset="public.users" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" dataset="public.company" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" dataset="public.employee_contact" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" dataset="public.info" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" dataset="public.employee" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" dataset="public.javatry" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
