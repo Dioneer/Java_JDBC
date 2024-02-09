@@ -1,5 +1,6 @@
 package Pegas.DAO;
 
+import Pegas.DTO.UserFilter;
 import Pegas.entity.User;
 import Pegas.exception.DaoException;
 import Pegas.utils.ConnectionManager;
@@ -8,8 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-public final class UserDao {
+public final class UserDao implements DAO<User, Long>{
     private volatile static UserDao INSTANCE;
     private final static String SAVE_USER = """
             insert into users (firstName,lastName,email,phone) values (?,?,?,?);
@@ -20,7 +22,7 @@ public final class UserDao {
             where id = ?;
             """;
     private final static String FIND_ALL_USERS = """
-            select id,firstName,lastName,email,phone from users;
+            select id,firstName,lastName,email,phone from users
             """;
     private final static String FIND_BY_ID = """
             select id,firstName,lastName,email,phone from users
@@ -66,6 +68,38 @@ public final class UserDao {
         PreparedStatement statement = connection.prepareStatement(FIND_ALL_USERS)){
             ResultSet result = statement.executeQuery();
             List<User> arr = new ArrayList<>();
+            while (result.next()){
+                arr.add(buildUser(result));
+            }
+            return arr;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public List<User> findAll(UserFilter filter){
+        List<Object> parametrs = new ArrayList<>();
+        List<String> whereSql = new ArrayList<>();
+        if(filter.firstName()!=null) {
+            parametrs.add(filter.firstName());
+            whereSql.add("firstname = ?");
+        }
+        if(filter.lastName()!=null) {
+            parametrs.add(filter.lastName());
+            whereSql.add("lastname = ?");
+        }
+        parametrs.add(filter.limit());
+        parametrs.add(filter.offset());
+        String query = whereSql.stream().collect(Collectors.joining(" AND ",
+                parametrs.size()>2?" WHERE ":" "," LIMIT ? OFFSET ? "));
+        String sql = FIND_ALL_USERS + query;
+        try(Connection connection = ConnectionManager.get();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+            List<User> arr = new ArrayList<>();
+            for (int i = 0; i < parametrs.size(); i++) {
+                statement.setObject(i+1,parametrs.get(i));
+            }
+            System.out.println(statement);
+            ResultSet result = statement.executeQuery();
             while (result.next()){
                 arr.add(buildUser(result));
             }

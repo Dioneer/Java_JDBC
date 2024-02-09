@@ -1,6 +1,4 @@
 package Pegas.DTO;
 
-public class UserFilter {
-    private final String firstName;
-    private final String lastName;
+public record UserFilter(String firstName,String lastName,int limit,int offset) {
 }
