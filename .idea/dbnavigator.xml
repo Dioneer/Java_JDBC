@@ -113,9 +113,7 @@ group by c.user_name]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" object-ref="schemas/public/tables/users" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="a8cd64b0-4e75-47ca-9bb4-aaaeac8fe168" />

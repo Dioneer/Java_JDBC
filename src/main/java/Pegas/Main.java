@@ -8,8 +8,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        List<Long> arr= getUsersId("%n ");
+        List<Long> arr= getUsersId("%n");
         System.out.println(arr);
+        checkMetaData();
 //        String sql =
 //                """
 //                create table info(
@@ -30,7 +31,7 @@ public class Main {
 //                """
 //                create schema game;
 //                """;
-//        try(Connection connection = ConnectionManager.open();
+//        try(Connection connection = ConnectionManager.get();
 //            Statement statement = connection.createStatement()){
 //            ResultSet result = statement.executeQuery(sql);
 //            while (result.next()){
@@ -45,9 +46,12 @@ public class Main {
                 select * from users
                 where firstname LIKE ?;
                 """;
-        try(Connection connection = ConnectionManager.open();
+        try(Connection connection = ConnectionManager.get();
 //            Statement statement = connection.createStatement()
             PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setFetchSize(3);
+            statement.setMaxRows(5);
+            statement.setQueryTimeout(1000);
             statement.setString(1, name);
             ResultSet result = statement.executeQuery();
             while (result.next()){
@@ -55,5 +59,14 @@ public class Main {
             }
         }
         return users;
+    }
+    public static void checkMetaData() throws SQLException{
+        try(Connection connection = ConnectionManager.get()){
+            DatabaseMetaData dmd = connection.getMetaData();
+            ResultSet resultSet = dmd.getCatalogs();
+            while (resultSet.next()){
+                System.out.println(resultSet.getString(1));
+            }
+        }
     }
 }
