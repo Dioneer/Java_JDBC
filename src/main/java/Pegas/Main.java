@@ -1,7 +1,9 @@
 package Pegas;
 
+import Pegas.DAO.EmployeeDao;
 import Pegas.DAO.UserDao;
 import Pegas.DTO.UserFilter;
+import Pegas.entity.Employee;
 import Pegas.entity.User;
 import Pegas.utils.ConnectionManager;
 
@@ -15,6 +17,7 @@ public class Main {
          * CRUD
          */
         UserDao userDao = UserDao.getINSTANCE();
+        EmployeeDao employeeDao = EmployeeDao.getINSTANCE();
 //        System.out.println(userDao.save(new User("Mim","Minivskiy","arlozxzx50@example.org", 9561235496L)));
 //        System.out.println(userDao.delete(8L));
 //        System.out.println(userDao.save(new User("Mim","Minivskiy","arlozxzx52@example.org", 9561235496L)));
@@ -25,6 +28,8 @@ public class Main {
 //        System.out.println(userDao.update(user));
         UserFilter filter = new UserFilter(null, "Nienow", 5, 0);
         System.out.println(userDao.findAll(filter));
+        System.out.println(employeeDao.findByID(4L));
+        System.out.println(employeeDao.findAll());
         /**
          * connection try
          */
