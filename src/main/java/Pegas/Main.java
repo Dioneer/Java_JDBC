@@ -1,5 +1,7 @@
 package Pegas;
 
+import Pegas.DAO.UserDao;
+import Pegas.entity.User;
 import Pegas.utils.ConnectionManager;
 
 import java.sql.*;
@@ -8,9 +10,24 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        List<Long> arr= getUsersId("%n");
-        System.out.println(arr);
-        checkMetaData();
+        /**
+         * CRUD
+         */
+        UserDao userDao = UserDao.getINSTANCE();
+//        System.out.println(userDao.save(new User("Mim","Minivskiy","arlozxzx50@example.org", 9561235496L)));
+//        System.out.println(userDao.delete(8L));
+//        System.out.println(userDao.save(new User("Mim","Minivskiy","arlozxzx52@example.org", 9561235496L)));
+//        System.out.println(userDao.findAll());
+        System.out.println(userDao.findByID(59L));
+        User user = userDao.findByID(48L).get();
+        user.setPhone(77777777L);
+        System.out.println(userDao.update(user));
+        /**
+         * connection try
+         */
+//        List<Long> arr= getUsersId("%n");
+//        System.out.println(arr);
+//        checkMetaData();
 //        String sql =
 //                """
 //                create table info(
