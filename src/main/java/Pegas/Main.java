@@ -2,6 +2,7 @@ package Pegas;
 
 import Pegas.DAO.EmployeeDao;
 import Pegas.DAO.UserDao;
+import Pegas.DTO.EmployeeFilter;
 import Pegas.DTO.UserFilter;
 import Pegas.entity.Employee;
 import Pegas.entity.User;
@@ -28,8 +29,10 @@ public class Main {
 //        System.out.println(userDao.update(user));
         UserFilter filter = new UserFilter(null, "Nienow", 5, 0);
         System.out.println(userDao.findAll(filter));
-        System.out.println(employeeDao.findByID(4L));
-        System.out.println(employeeDao.findAll());
+        Employee employee = employeeDao.findByID(4L).get();
+        employee.setFirstname("Elianora");
+        EmployeeFilter employeeFilter = new EmployeeFilter("Jon", "Jonson", 10, 0);
+        System.out.println(employeeDao.findAll(employeeFilter));
         /**
          * connection try
          */

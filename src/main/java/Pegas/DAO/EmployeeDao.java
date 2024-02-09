@@ -1,5 +1,7 @@
 package Pegas.DAO;
 
+import Pegas.DTO.EmployeeFilter;
+import Pegas.DTO.UserFilter;
 import Pegas.entity.Employee;
 import Pegas.entity.User;
 import Pegas.utils.ConnectionManager;
@@ -8,6 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class EmployeeDao implements DAO<Employee, Long>{
 
@@ -64,7 +67,38 @@ public class EmployeeDao implements DAO<Employee, Long>{
             throw new RuntimeException(e);
         }
     }
-
+    public List<Employee> findAll(EmployeeFilter filter){
+        List<Object> parametrs = new ArrayList<>();
+        List<String> whereSql = new ArrayList<>();
+        if(filter.firstName()!=null) {
+            parametrs.add(filter.firstName());
+            whereSql.add("first_name = ?");
+        }
+        if(filter.lastName()!=null) {
+            parametrs.add(filter.lastName());
+            whereSql.add("last_name = ?");
+        }
+        parametrs.add(filter.limit());
+        parametrs.add(filter.offset());
+        String query = whereSql.stream().collect(Collectors.joining(" AND ",
+                parametrs.size()>2?" WHERE ":" "," LIMIT ? OFFSET ? "));
+        String sql = FIND_ALL_EMPLOYEE + query;
+        try(Connection connection = ConnectionManager.get();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+            List<Employee> arr = new ArrayList<>();
+            for (int i = 0; i < parametrs.size(); i++) {
+                statement.setObject(i+1,parametrs.get(i));
+            }
+            System.out.println(statement);
+            ResultSet result = statement.executeQuery();
+            while (result.next()){
+                arr.add(buildEmployee(result));
+            }
+            return arr;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public Optional<Employee> findByID(Long id) {
         try(Connection connection = ConnectionManager.get();
