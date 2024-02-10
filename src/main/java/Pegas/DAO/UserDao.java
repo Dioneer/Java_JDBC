@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public final class UserDao implements DAO<User, Long>{
-    private volatile static UserDao INSTANCE;
+
     private final static String SAVE_USER = """
             insert into users (firstName,lastName,email,phone) values (?,?,?,?);
             """;
@@ -145,6 +145,7 @@ public final class UserDao implements DAO<User, Long>{
         result.getLong("phone"));
     }
 
+    private volatile static UserDao INSTANCE;
     private UserDao() {
     }
     public static UserDao getINSTANCE() {

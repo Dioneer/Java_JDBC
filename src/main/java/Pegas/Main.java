@@ -1,14 +1,18 @@
 package Pegas;
 
+import Pegas.DAO.CompanyDao;
 import Pegas.DAO.EmployeeDao;
 import Pegas.DAO.UserDao;
 import Pegas.DTO.EmployeeFilter;
 import Pegas.DTO.UserFilter;
+import Pegas.entity.Company;
 import Pegas.entity.Employee;
 import Pegas.entity.User;
 import Pegas.utils.ConnectionManager;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +23,7 @@ public class Main {
          */
         UserDao userDao = UserDao.getINSTANCE();
         EmployeeDao employeeDao = EmployeeDao.getINSTANCE();
+        CompanyDao companyDao = CompanyDao.getINSTANCE();
 //        System.out.println(userDao.save(new User("Mim","Minivskiy","arlozxzx50@example.org", 9561235496L)));
 //        System.out.println(userDao.delete(8L));
 //        System.out.println(userDao.save(new User("Mim","Minivskiy","arlozxzx52@example.org", 9561235496L)));
@@ -33,6 +38,15 @@ public class Main {
         employee.setFirstname("Elianora");
         EmployeeFilter employeeFilter = new EmployeeFilter("Jon", "Jonson", 10, 0);
         System.out.println(employeeDao.findAll(employeeFilter));
+        Company company = new Company("HeadHunter", LocalDate.of(2016,8,16));
+        //========================================================================================================
+        System.out.println("company ---------------->");
+        Company company1 = companyDao.findByID(4L).get();
+//        company1.setUser_name("BigData");
+//        System.out.println(companyDao.save(company));
+//        System.out.println(companyDao.delete(5L));
+//        System.out.println(companyDao.update(company1));
+        System.out.println(companyDao.findAll());
         /**
          * connection try
          */
@@ -77,6 +91,7 @@ public class Main {
         try(Connection connection = ConnectionManager.get();
 //            Statement statement = connection.createStatement()
             PreparedStatement statement = connection.prepareStatement(sql)){
+//            statement.setTimestamp(18,Timestamp.valueOf(LocalDateTime));
             statement.setFetchSize(3);
             statement.setMaxRows(5);
             statement.setQueryTimeout(1000);

@@ -1,9 +1,7 @@
 package Pegas.DAO;
 
 import Pegas.DTO.EmployeeFilter;
-import Pegas.DTO.UserFilter;
 import Pegas.entity.Employee;
-import Pegas.entity.User;
 import Pegas.utils.ConnectionManager;
 
 import java.sql.*;
@@ -145,8 +143,6 @@ public class EmployeeDao implements DAO<Employee, Long>{
         }
     }
 
-    private volatile static EmployeeDao INSTANCE;
-
     private Employee buildEmployee(ResultSet result) throws SQLException {
         return new Employee(result.getLong("id"),
                 result.getString("first_name"),
@@ -155,6 +151,7 @@ public class EmployeeDao implements DAO<Employee, Long>{
                 result.getLong("company_id"));
     }
 
+    private volatile static EmployeeDao INSTANCE;
     private EmployeeDao() {
     }
     public static EmployeeDao getINSTANCE() {
