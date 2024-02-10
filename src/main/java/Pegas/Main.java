@@ -3,6 +3,7 @@ package Pegas;
 import Pegas.DAO.CompanyDao;
 import Pegas.DAO.EmployeeDao;
 import Pegas.DAO.UserDao;
+import Pegas.DTO.CompanyFilter;
 import Pegas.DTO.EmployeeFilter;
 import Pegas.DTO.UserFilter;
 import Pegas.entity.Company;
@@ -34,19 +35,22 @@ public class Main {
 //        System.out.println(userDao.update(user));
         UserFilter filter = new UserFilter(null, "Nienow", 5, 0);
         System.out.println(userDao.findAll(filter));
+        System.out.println("company ---------------->");
         Employee employee = employeeDao.findByID(4L).get();
+        System.out.println(employee);
         employee.setFirstname("Elianora");
+        System.out.println(employee);
         EmployeeFilter employeeFilter = new EmployeeFilter("Jon", "Jonson", 10, 0);
         System.out.println(employeeDao.findAll(employeeFilter));
-        Company company = new Company("HeadHunter", LocalDate.of(2016,8,16));
-        //========================================================================================================
         System.out.println("company ---------------->");
+        Company company = new Company("HeadHunter", LocalDate.of(2016,8,16));
         Company company1 = companyDao.findByID(4L).get();
 //        company1.setUser_name("BigData");
 //        System.out.println(companyDao.save(company));
 //        System.out.println(companyDao.delete(5L));
 //        System.out.println(companyDao.update(company1));
-        System.out.println(companyDao.findAll());
+//        System.out.println(companyDao.findAll());
+        System.out.println(companyDao.findAll(new CompanyFilter(null,null,2,1)));
         /**
          * connection try
          */

@@ -1,10 +1,13 @@
 package Pegas.DAO;
 
 import Pegas.DTO.EmployeeFilter;
+import Pegas.entity.Company;
 import Pegas.entity.Employee;
 import Pegas.utils.ConnectionManager;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,11 +24,17 @@ public class EmployeeDao implements DAO<Employee, Long>{
             where id = ?;
             """;
     private final static String FIND_ALL_EMPLOYEE = """
-            select id,first_name,last_name,salary,company_id from employee
+            select e.id,e.first_name,e.last_name,e.salary,e.company_id,
+            c.user_name, c.reg_date
+            from employee e
+            JOIN company c on c.id = e.company_id
             """;
     private final static String FIND_BY_ID = """
-            select id,first_name,last_name,salary,company_id from employee
-            where id=?;
+            select e.id,e.first_name,e.last_name,e.salary,e.company_id,
+            c.user_name, c.reg_date
+            from employee e
+            JOIN company c on c.id = e.company_id
+            where e.id=?;
             """;
     private final static String UPDATE_EMPLOYEE = """
             update employee
@@ -43,7 +52,7 @@ public class EmployeeDao implements DAO<Employee, Long>{
             statement.setString(1,employee.getFirstname());
             statement.setString(2,employee.getLastName());
             statement.setInt(3,employee.getSalary());
-            statement.setLong(4,employee.getCompany_id());
+            statement.setLong(4,employee.getCompany().getId());
             statement.setLong(5,employee.getId());
             return statement.executeUpdate()>0;
         } catch (SQLException e) {
@@ -70,11 +79,11 @@ public class EmployeeDao implements DAO<Employee, Long>{
         List<String> whereSql = new ArrayList<>();
         if(filter.firstName()!=null) {
             parametrs.add(filter.firstName());
-            whereSql.add("first_name = ?");
+            whereSql.add("e.first_name = ?");
         }
         if(filter.lastName()!=null) {
             parametrs.add(filter.lastName());
-            whereSql.add("last_name = ?");
+            whereSql.add("e.last_name = ?");
         }
         parametrs.add(filter.limit());
         parametrs.add(filter.offset());
@@ -87,7 +96,6 @@ public class EmployeeDao implements DAO<Employee, Long>{
             for (int i = 0; i < parametrs.size(); i++) {
                 statement.setObject(i+1,parametrs.get(i));
             }
-            System.out.println(statement);
             ResultSet result = statement.executeQuery();
             while (result.next()){
                 arr.add(buildEmployee(result));
@@ -131,7 +139,7 @@ public class EmployeeDao implements DAO<Employee, Long>{
             statement.setString(1,employee.getFirstname());
             statement.setString(2,employee.getLastName());
             statement.setInt(3,employee.getSalary());
-            statement.setLong(4,employee.getCompany_id());
+            statement.setLong(4,employee.getCompany().getId());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if(resultSet!= null){
@@ -144,11 +152,14 @@ public class EmployeeDao implements DAO<Employee, Long>{
     }
 
     private Employee buildEmployee(ResultSet result) throws SQLException {
+        Company company = new Company(result.getLong("company_id"),
+                result.getString("user_name"),
+                LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(result.getDate("reg_date"))));
         return new Employee(result.getLong("id"),
                 result.getString("first_name"),
                 result.getString("last_name"),
                 result.getInt("salary"),
-                result.getLong("company_id"));
+                company);
     }
 
     private volatile static EmployeeDao INSTANCE;

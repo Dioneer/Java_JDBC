@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CompanyDao implements DAO<Company, Long>{
 
@@ -69,10 +70,31 @@ public class CompanyDao implements DAO<Company, Long>{
         }
     }
     public List<Company> findAll(CompanyFilter filter) {
+        List<Object> parametrs = new ArrayList<>();
+        List<String> whereSql = new ArrayList<>();
+        if(filter.user_name()!=null){
+            parametrs.add(filter.user_name());
+            whereSql.add(" user_name = ? ");
+        }
+        if(filter.reg_date()!=null){
+            parametrs.add(filter.reg_date());
+            whereSql.add(" reg_date = ? ");
+        }
+        parametrs.add(filter.limit());
+        parametrs.add(filter.offset());
+        String query = whereSql.stream().collect(Collectors.joining(" AND ",
+                parametrs.size()>2?" WHERE ":" ", " LIMIT ? OFFSET ?"));
+        String sql = FIND_ALL_COMPANY + query;
         try (Connection connection = ConnectionManager.get();
-             PreparedStatement statement = connection.prepareStatement(FIND_ALL_COMPANY)) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < parametrs.size(); i++) {
+                statement.setObject(i+1, parametrs.get(i));
+            }
+            ResultSet resultSet = statement.executeQuery();
             List<Company> arr = new ArrayList<>();
-
+            while (resultSet.next()){
+                arr.add(buildCompany(resultSet));
+            }
             return arr;
         } catch (SQLException e) {
             throw new RuntimeException(e);
