@@ -1,4 +1,4 @@
-package Pegas.service;
+package Pegas.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
