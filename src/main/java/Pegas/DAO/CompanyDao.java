@@ -41,6 +41,24 @@ public class CompanyDao implements DAO<Company, Long>{
             """
             select * from company
             """;
+    private final static String FIND_ALL_EMPLOYEE_ID = FIND_ALL_COMPANY +
+            """
+            where id = ?
+            """;
+    public List<Company> findAllByEmployeeId(Long id){
+        try(Connection connection = ConnectionManager.get();
+            PreparedStatement statement = connection.prepareStatement(FIND_ALL_EMPLOYEE_ID)){
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            List<Company> arr = new ArrayList<>();
+            while (resultSet.next()){
+                arr.add(buildCompany(resultSet));
+            }
+            return arr;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public boolean update(Company company) {
         try(Connection connection = ConnectionManager.get();
