@@ -2,10 +2,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Pegas.service.CompanyService" %>
 <%@ page import="Pegas.DTO.CompanyDTO" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core">
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/fanctions">
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt">
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%
+    	String[] numList = {"one","two","three"};
+    	request.setAttribute("numList", numList);
+    %>
 <html>
 <head>
     <title>Title</title>
@@ -18,12 +19,16 @@
     Long companyId = Long.valueOf(request.getParameter("companyid"));
     for(CompanyDTO i : companyService.findAllByEmployeeId(companyId)){
         out.write(String.format("<li>%s</li>",i.userName()));
-    }
+    };
     %>
-    <c:forEach var="company" items="${requestScope.company}">
-    <li>"${company.userName()}"</li>
-    </c:forEach>
 
+     <c:if test="${not empty company}">
+        <c:forEach var="i" items="${company}">
+        <c:out value="${i}"/>
+        </c:forEach>
+    </c:if>
+    	<c:out value='${requestScope["numList"]}' /><br/>
+    	<c:out value='${requestScope.numList}'/>
 </ul>
 </body>
 </html>

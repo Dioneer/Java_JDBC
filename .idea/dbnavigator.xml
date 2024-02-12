@@ -17,6 +17,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d">
+      <console name="DB Connection" type="STANDARD" schema="" session="Main" />
       <console name="DB_vk_connection" type="STANDARD" schema="public" session="Main"><![CDATA[drop table if exists javatry;
 CREATE TABLE javatry (
     id SERIAL primary key ,
@@ -102,6 +103,7 @@ group by c.user_name]]></console>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.users" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.company" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.javatry" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
@@ -140,7 +142,7 @@ group by c.user_name]]></console>
           <deprecated-pwd value="MTIzNDU2" />
         </database>
         <properties>
-          <auto-commit value="false" />
+          <auto-commit value="true" />
         </properties>
         <ssh-settings>
           <active value="false" />
