@@ -21,7 +21,7 @@ public class RegistrationServlet extends HttpServlet {
        resp.setContentType("text/html; charset=UTF-8");
         try(PrintWriter writer= resp.getWriter()){
             writer.write(req.getParameter("name"));
-            writer.write(req.getParameter("pwd"));
+            writer.write(req.getParameter("email"));
         }
     }
 }
