@@ -29,6 +29,6 @@ public class CompanyServlet extends HttpServlet {
 //        }
         List<CompanyDTO> company = service.findAllByEmployeeId(companyId);
         req.setAttribute("company",company);
-        req.getRequestDispatcher("/user.jsp").forward(req,resp);
+        req.getServletContext().getRequestDispatcher("/user.jsp").forward(req,resp);
     }
 }

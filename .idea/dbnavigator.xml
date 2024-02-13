@@ -17,7 +17,6 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d">
-      <console name="DB Connection" type="STANDARD" schema="" session="Main" />
       <console name="DB_vk_connection" type="STANDARD" schema="public" session="Main"><![CDATA[drop table if exists javatry;
 CREATE TABLE javatry (
     id SERIAL primary key ,
@@ -89,7 +88,18 @@ full join company c on c.id = e.company_id
 
 select c.user_name,count(c.user_name) from employee e
 join company c on c.id = e.company_id
-group by c.user_name]]></console>
+group by c.user_name
+
+drop table if exists admin_panel_users;
+create table admin_panel_users(
+id serial primary key,
+user_name varchar(124) not null,
+birthday date not null,
+email varchar(124) not null,
+password varchar(124) not null,
+role varchar(32) not null,
+gender varchar(32) not null
+);]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -105,6 +115,7 @@ group by c.user_name]]></console>
     <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.users" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.company" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.javatry" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.admin_panel_users" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

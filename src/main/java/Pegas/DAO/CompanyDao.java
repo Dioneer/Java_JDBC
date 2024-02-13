@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CompanyDao implements DAO<Company, Long>{
+public final class CompanyDao implements DAO<Company, Long>{
 
     private final static String SAVE_COMPANY=
             """

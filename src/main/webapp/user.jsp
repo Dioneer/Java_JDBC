@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Pegas.service.CompanyService" %>
@@ -27,8 +28,8 @@
         <c:out value="${i}"/>
         </c:forEach>
     </c:if>
-    	<c:out value='${requestScope["numList"]}' /><br/>
-    	<c:out value='${requestScope.numList}'/>
+    	<c:out value='${requestScope["numList"][0]}' /><br/>
+    	<c:out value='${requestScope["numList"][2]}'/>
 </ul>
 </body>
 </html>

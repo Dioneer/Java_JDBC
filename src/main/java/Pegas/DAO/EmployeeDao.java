@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class EmployeeDao implements DAO<Employee, Long>{
+public final class EmployeeDao implements DAO<Employee, Long>{
 
     private final static String SAVE_EMPLOYEE= """
             insert into employee (first_name,last_name,salary,company_id) values (?,?,?,?);
