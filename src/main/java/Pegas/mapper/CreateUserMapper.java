@@ -14,8 +14,8 @@ public final class CreateUserMapper implements Mapper<UserAdminPanel, CreateUser
                 .birthday(LocalDateFormatter.format(createUserDTO.birthday()))
                 .email(createUserDTO.email())
                 .password(createUserDTO.password())
-                .gender(Gender.valueOf(createUserDTO.gender()))
-                .role(Role.valueOf(createUserDTO.role()))
+                .gender(createUserDTO.gender())
+                .role(createUserDTO.role())
                 .build();
     }
     private static volatile CreateUserMapper INSTANCE;

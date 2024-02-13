@@ -21,7 +21,7 @@
         <p><label for="pwd">Password:
             <input type="password" name="pwd" id="pwd">
         </label></p>
-        <p><select>
+        <p><select name="role" id="role">
            <c:forEach var="role" items="${requestScope.roles}">
            <option label="${role}">${role}</option>
            </c:forEach>
@@ -34,5 +34,12 @@
         </p>
         <button type="submit" value="submit">Submit</button>
     </form>
+    <c:if test="${param.error !=null}">
+        <div style="color:red">
+            <c:forEach var="error" items="${requestScope.errors}">
+                <span>${error.message}</span></br>
+            </c:forEach>
+        </div>
+    </c:if>
 </body>
 </html>

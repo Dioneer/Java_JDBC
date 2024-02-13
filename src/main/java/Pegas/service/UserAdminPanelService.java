@@ -3,13 +3,32 @@ package Pegas.service;
 import Pegas.DAO.UserAdminPanelDAO;
 import Pegas.DTO.CreateUserDTO;
 import Pegas.entity.UserAdminPanel;
+import Pegas.exception.ValidationException;
 import Pegas.mapper.CreateUserMapper;
+import Pegas.mapper.UserAdminPanelMapper;
+import Pegas.validator.CreateUserValidator;
+import Pegas.validator.ValidationResult;
+
+import java.util.Optional;
 
 public class UserAdminPanelService {
     private final CreateUserMapper createUserMapper = CreateUserMapper.getInstance();
     private final UserAdminPanelDAO userAdminPanelDAO = UserAdminPanelDAO.getINSTANCE();
-    public Integer save(CreateUserDTO createUserDTO){
+    private final CreateUserValidator createUserValidator = CreateUserValidator.getINSTACE();
+    private final UserAdminPanelMapper userAdminPanelMapper = UserAdminPanelMapper.getInstance();
+
+    public Optional<CreateUserDTO> findForLogin(String email, String password){
+        return userAdminPanelDAO.Login(email, password).map(userAdminPanelMapper::mapFrom);
+    }
+
+    public Integer save(CreateUserDTO createUserDTO) throws ValidationException {
+        ValidationResult validationResult = createUserValidator.isValid(createUserDTO);
+        if(!validationResult.isValid()){
+            throw new ValidationException(validationResult.getErrors());
+        }
+        System.out.println("valid " +createUserDTO);
         UserAdminPanel user = createUserMapper.mapFrom(createUserDTO);
+        System.out.println("user " +user);
         UserAdminPanel result = userAdminPanelDAO.save(user);
         return Math.toIntExact(result.getId());
     }
@@ -26,5 +45,9 @@ public class UserAdminPanelService {
             }
         }
         return INSTANCE;
+    }
+
+    public void login(String email, String password) {
+
     }
 }

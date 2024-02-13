@@ -13,7 +13,7 @@ public class LocalDateFormatter {
         return LocalDate.parse(date, formatter);
 
     }
-    public boolean isValid(String date){
+    public static boolean isValid(String date){
         try{
             return Optional.ofNullable(date).map(LocalDateFormatter::format).isPresent();
         }catch(DateTimeParseException e){
