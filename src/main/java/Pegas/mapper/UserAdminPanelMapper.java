@@ -1,20 +1,19 @@
 package Pegas.mapper;
 
 import Pegas.DTO.CreateUserDTO;
+import Pegas.DTO.UserDTO;
 import Pegas.entity.UserAdminPanel;
 
-import java.time.LocalDate;
-
-public final class UserAdminPanelMapper implements Mapper<CreateUserDTO, UserAdminPanel>{
+public final class UserAdminPanelMapper implements Mapper<UserDTO, UserAdminPanel>{
 
     @Override
-    public CreateUserDTO mapFrom(UserAdminPanel userAdminPanel) {
-        return CreateUserDTO.builder()
+    public UserDTO mapFrom(UserAdminPanel userAdminPanel) {
+        return UserDTO.builder()
                 .id(userAdminPanel.getId())
                 .user_name(userAdminPanel.getUser_name())
-                .birthday(String.valueOf(userAdminPanel.getBirthday()))
+                .birthday(userAdminPanel.getBirthday())
                 .email(userAdminPanel.getEmail())
-                .email(userAdminPanel.getPassword())
+                .password(userAdminPanel.getPassword())
                 .role(userAdminPanel.getRole())
                 .gender(userAdminPanel.getGender())
                 .build();
@@ -32,6 +31,5 @@ public final class UserAdminPanelMapper implements Mapper<CreateUserDTO, UserAdm
         }
         return INSTANCE;
     }
-
 
 }

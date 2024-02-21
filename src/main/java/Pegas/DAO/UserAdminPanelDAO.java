@@ -5,8 +5,6 @@ import Pegas.exception.DaoException;
 import Pegas.utils.ConnectionManager;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

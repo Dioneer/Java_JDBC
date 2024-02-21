@@ -18,16 +18,13 @@ public final class CreateUserValidator implements Validator<CreateUserDTO> {
         if(Role.find(String.valueOf(createUserDTO.role())).isEmpty()){
             validationResult.add(Error.of("invalid.role", "Role is invalid"));
         }
-        if(createUserDTO.user_name()==null){
+        if(createUserDTO.user_name().isEmpty()){
             validationResult.add(Error.of("invalid.user_name", "User_name is invalid"));
         }
-        if(createUserDTO.user_name()==null){
-            validationResult.add(Error.of("invalid.user_name", "User_name is invalid"));
-        }
-        if(createUserDTO.email()==null){
+        if(createUserDTO.email().isEmpty()){
             validationResult.add(Error.of("invalid.email", "Email is invalid"));
         }
-        if(createUserDTO.password()==null){
+        if(createUserDTO.password().isEmpty()){
             validationResult.add(Error.of("invalid.password", "Password is invalid"));
         }
         return validationResult;

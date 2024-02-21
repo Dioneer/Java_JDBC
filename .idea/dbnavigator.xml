@@ -114,6 +114,9 @@ gender varchar(32) not null
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.users" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.company" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.info" active-filter-id="" />
+    <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.employee_contact" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.employee" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.javatry" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="40d1d403-466e-4fe7-aeaf-1cfce8bfab5d" dataset="public.admin_panel_users" active-filter-id="EMPTY_FILTER" />
   </component>

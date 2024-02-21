@@ -8,7 +8,7 @@ public class ValidationResult {
     public void add(Error error){
         this.errors.add(error);
     }
-    public boolean isValid(){
+    public boolean  isValid(){
         return errors.isEmpty();
     }
 

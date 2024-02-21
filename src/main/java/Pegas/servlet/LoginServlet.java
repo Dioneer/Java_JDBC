@@ -1,6 +1,7 @@
 package Pegas.servlet;
 
 import Pegas.DTO.CreateUserDTO;
+import Pegas.DTO.UserDTO;
 import Pegas.service.UserAdminPanelService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,9 +22,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         userAdminPanelService.findForLogin(req.getParameter("email"), req.getParameter("password"))
-                .ifPresentOrElse(userAdminPanel-> {
+                .ifPresentOrElse(userDTO-> {
                     try {
-                        onLoginSuccess(userAdminPanel,req,resp);
+                        onLoginSuccess(userDTO,req,resp);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -40,8 +41,8 @@ public class LoginServlet extends HttpServlet {
         resp.sendRedirect("/login?error&email="+req.getParameter("email"));
     }
 
-    private void onLoginSuccess(CreateUserDTO userAdminPanel, HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.getSession().setAttribute("user", userAdminPanel);
+    private void onLoginSuccess(UserDTO userDTO, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.getSession().setAttribute("user",userDTO);
         resp.sendRedirect("/user");
     }
 }

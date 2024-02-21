@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
@@ -33,15 +32,17 @@ public class RegistrationServlet extends HttpServlet {
                     .birthday(req.getParameter("birthday"))
                     .email(req.getParameter("email"))
                     .password(req.getParameter("pwd"))
-                    .role(Role.valueOf(req.getParameter("role")))
-                    .gender(Gender.valueOf(req.getParameter("gender")))
+                    .role(req.getParameter("role"))
+                    .gender(req.getParameter("gender"))
                     .build();
-            userAdminPanelService.save(createUserDTO);
-            resp.sendRedirect("/login");
-        } catch (ValidationException e) {
-            req.setAttribute("errors", e.getErrors());
-            System.out.println(e.getErrors());
-            doGet(req, resp);
+            try {
+                userAdminPanelService.save(createUserDTO);
+                resp.sendRedirect("/login");
+            } catch (ValidationException e) {
+                req.setAttribute("errors", e.getErrors());
+                System.out.println(e.getErrors());
+                doGet(req, resp);
+            }
         }
     }
 }

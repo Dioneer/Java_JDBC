@@ -34,7 +34,7 @@
         </p>
         <button type="submit" value="submit">Submit</button>
     </form>
-    <c:if test="${param.error !=null}">
+    <c:if test="${requestScope.errors !=null}">
         <div style="color:red">
             <c:forEach var="error" items="${requestScope.errors}">
                 <span>${error.message}</span></br>
